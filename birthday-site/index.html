@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday ❤️</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  color: white;
+}
+
+h1 {
+  margin-top: 50px;
+  font-size: 50px;
+}
+
+p {
+  font-size: 20px;
+  width: 80%;
+  margin: auto;
+}
+
+img {
+  width: 200px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  background: white;
+  color: #ff4d6d;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Birthday ❤️</h1>
+
+<p>
+You are the best thing in my life 💖  
+Thank you for always being with me.  
+I love you so much ❤️
+</p>
+
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+
+<br><br>
+
+<button onclick="show()">Click for Surprise 🎁</button>
+
+<p id="msg" class="hidden">
+I promise to always make you happy 😊  
+Happy Birthday ❤️
+</p>
+
+<script>
+function show(){
+  document.getElementById("msg").style.display="block";
+}
+</script>
+
+</body>
+</html>
