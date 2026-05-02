@@ -1,75 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Happy Birthday ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
   margin: 0;
-  font-family: Arial;
-  text-align: center;
-  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #1a001a, #000);
   color: white;
+  text-align: center;
+  overflow-x: hidden;
 }
 
-h1 {
-  margin-top: 50px;
-  font-size: 50px;
+/* Intro Screen */
+#intro {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-p {
-  font-size: 20px;
-  width: 80%;
-  margin: auto;
+#main {
+  display: none;
 }
 
-img {
-  width: 200px;
-  border-radius: 15px;
-  margin: 10px;
-}
-
+/* Button */
 button {
   padding: 12px 25px;
   font-size: 18px;
   border: none;
-  background: white;
-  color: #ff4d6d;
-  border-radius: 10px;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 25px;
   cursor: pointer;
+  box-shadow: 0 0 15px rgba(255,77,109,0.7);
 }
 
-.hidden {
+/* Countdown */
+#countdown {
+  font-size: 26px;
+  margin: 20px;
+}
+
+/* Typing */
+#typing {
+  font-size: 20px;
+  width: 80%;
+  margin: auto;
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Slideshow */
+.gallery img {
+  width: 220px;
+  border-radius: 15px;
+  margin: 10px;
   display: none;
+  box-shadow: 0 0 20px rgba(255,77,109,0.5);
+}
+
+/* Hearts */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: float 4s linear forwards;
+}
+@keyframes float {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>Happy Birthday ❤️</h1>
+<div id="intro">
+  <h1>Hey Beautiful ❤️</h1>
+  <p>I made something special just for you...</p>
+  <button onclick="start()">Open 🎁</button>
+</div>
 
-<p>
-You are the best thing in my life 💖  
-Thank you for always being with me.  
-I love you so much ❤️
-</p>
+<div id="main">
+  <h1>Happy Birthday ❤️</h1>
 
-<img src="photo1.jpg">
-<img src="photo2.jpg">
+  <div id="countdown"></div>
 
-<br><br>
+  <p id="typing"></p>
 
-<button onclick="show()">Click for Surprise 🎁</button>
+  <!-- Music -->
+  <audio autoplay loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
 
-<p id="msg" class="hidden">
-I promise to always make you happy 😊  
-Happy Birthday ❤️
-</p>
+  <!-- Slideshow -->
+  <div class="gallery">
+    <img src="photo1.jpg" class="slide">
+    <img src="photo2.jpg" class="slide">
+    <img src="photo3.jpg" class="slide">
+  </div>
+
+  <button onclick="showMessage()">Click for Surprise 💖</button>
+
+  <p id="msg" style="display:none; margin-top:20px;">
+    You are my happiness, my peace, my everything 💖<br>
+    I feel lucky every single day to have you 😊<br>
+    I promise to always stand by you ❤️<br><br>
+    Happy Birthday ❤️
+  </p>
+</div>
 
 <script>
-function show(){
-  document.getElementById("msg").style.display="block";
+// Start
+function start() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("main").style.display = "block";
 }
+
+// Countdown (CHANGE YEAR IF NEEDED)
+let countDate = new Date("May 13, 2026 00:00:00").getTime();
+
+setInterval(() => {
+  let now = new Date().getTime();
+  let gap = countDate - now;
+
+  let d = Math.floor(gap / (1000 * 60 * 60 * 24));
+  let h = Math.floor((gap / (1000 * 60 * 60)) % 24);
+  let m = Math.floor((gap / (1000 * 60)) % 60);
+  let s = Math.floor((gap / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    d + "d " + h + "h " + m + "m " + s + "s left 🎂";
+}, 1000);
+
+// Typing effect
+let text = "You are the best thing that ever happened to me 💖";
+let i = 0;
+function type() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type, 50);
+  }
+}
+type();
+
+// Slideshow
+let index = 0;
+let slides = document.getElementsByClassName("slide");
+
+function showSlides() {
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  index++;
+  if (index > slides.length) index = 1;
+  slides[index - 1].style.display = "block";
+  setTimeout(showSlides, 2000);
+}
+showSlides();
+
+// Surprise
+function showMessage() {
+  document.getElementById("msg").style.display = "block";
+}
+
+// Hearts
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.innerHTML = "❤️";
+  heart.className = "heart";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.bottom = "0px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 4000);
+}, 300);
 </script>
 
 </body>
